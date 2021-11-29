@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-import validation
-"""
+
 def get_float(message, low, high):
     check = float(input(message))
     while check <= low or check > high:
@@ -15,7 +14,7 @@ def get_int(message, low, high):
         print(f"Entry must be greater than {low} and less than or equal to {high}")
         check = int(input(message))
     return check
-"""
+
 
 def calculate_future_value(monthly_investment, yearly_interest, years):
     # convert yearly values to monthly values
@@ -35,19 +34,7 @@ def calculate_future_value(monthly_investment, yearly_interest, years):
 def main():
     choice = "y"
     while choice.lower() == "y":
-        # get input from the user
-        monthly_investment = validation.get_float("Enter monthly investment:\t", 0, 1000)
-        yearly_interest_rate = validation.get_float("Enter yearly interest rate:\t", 0, 15)
-        years = validation.get_int("Enter number of years:\t\t", 0, 50)
 
-        # get and display future value
-        future_value = calculate_future_value(
-            monthly_investment, yearly_interest_rate, years)
-
-        print(f"Future value:\t\t\t{round(future_value, 2)}")
-        print()
-
-        # see if the user wants to continue
         choice = input("Continue? (y/n): ")
         print()
 
