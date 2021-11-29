@@ -3,38 +3,39 @@
 def get_float(prompt, low, high):
     while True:
         number = float(input(prompt))
-        if number > low and number <= high:
-            is_valid = True
+        if low < number <= high:
             return number
         else:
             print("Entry must be greater than", low,
                   "and less than or equal to", high,
                   "Please try again.")
+
             
 def get_integer(prompt, low, high):
     while True:
         number = int(input(prompt))
-        if number > low and number <= high:
-            is_valid = True
+        if low < number <= high:
             return number
         else:
             print("Entry must be greater than", low,
                   "and less than or equal to", high,
                   "Please try again.")
-            
+
+
 def calculate_future_value(monthly_investment, yearly_interest, years):
     # convert yearly values to monthly values
-    monthly_interest_rate = yearly_interest / 12
+    monthly_interest_rate = yearly_interest / 12 / 100
     months = years * 12
 
     # calculate future value
     future_value = 0.0
-    for i in range(1, months):
+    for i in range(1, months+1):
         future_value += monthly_investment
         monthly_interest = future_value * monthly_interest_rate
         future_value += monthly_interest
 
     return future_value
+
 
 def main():
     choice = "y"

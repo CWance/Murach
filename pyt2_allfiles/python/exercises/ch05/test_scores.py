@@ -16,7 +16,6 @@ while True:
     test_score = input("Enter test score (or 'x' to quit): ")
     if test_score != "x":
         test_score = int(test_score)
-        counter += 1
     else:
         break
     if test_score >= 0 and test_score <= 100:
