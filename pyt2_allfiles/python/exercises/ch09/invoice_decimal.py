@@ -27,17 +27,20 @@ while choice == "y":
     discount = order_total * discount_percent
     discount = discount.quantize(Decimal("1.00"), ROUND_HALF_UP)                                
     subtotal = order_total - discount
+    shipping = subtotal * Decimal(".085")
+    shipping = shipping.quantize(Decimal("1.00"), ROUND_HALF_UP)
     tax_percent = Decimal(".05")
     sales_tax = subtotal * tax_percent
     sales_tax = sales_tax.quantize(Decimal("1.00"), ROUND_HALF_UP)                                 
-    invoice_total = subtotal + sales_tax
+    invoice_total = subtotal + sales_tax + shipping
 
     # display the results
-    print(f"Order total:        {order_total:10,}")
-    print(f"Discount amount:    {discount:10,}")
-    print(f"Subtotal:           {subtotal:10,}")
-    print(f"Sales tax:          {sales_tax:10,}")
-    print(f"Invoice total:      {invoice_total:10,}")
+    print(f"Order total:        ${order_total:10,}")
+    print(f"Discount amount:    ${discount:10,}")
+    print(f"Subtotal:           ${subtotal:10,}")
+    print(f"Shipping:           ${shipping:10,}")
+    print(f"Sales tax:          ${sales_tax:10,}")
+    print(f"Invoice total:      ${invoice_total:10,}")
     print()
 
     choice = input("Continue? (y/n): ")    
