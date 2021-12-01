@@ -26,15 +26,26 @@ def get_unique_words(words):
             unique_words.append(words[i])            
     return unique_words
 
+
+def get_sentences(filename):
+    with open(filename) as file:
+        text = file.read()
+    sentences = text.split(".")
+    return sentences
+
+
+
 def main():
     filename = "gettysburg_address.txt"
     print("The Word Counter program\n")  
 
     # get words and unique words
     words = get_words_from_file(filename) # get list of words
+    sentences = get_sentences(filename)
     unique_words = get_unique_words(words)
 
-    # display number of words and unique words   
+    # display number of words and unique words
+    print(f"Number of sentences = {len(sentences)}")
     print(f"Number of words = {len(words)}")
     print(f"Number of unique words = {len(unique_words)}")
 

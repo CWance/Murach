@@ -1,4 +1,5 @@
 import wordlist
+import hangman_graphic
 
 # Get a random word from the word list
 def get_word():
@@ -13,6 +14,7 @@ def add_spaces(word):
 # Draw the display
 def draw_screen(num_wrong, num_guesses, guessed_letters, displayed_word):
     print("-" * 79)
+    print(hangman_graphic.get_graphic()[num_wrong])
     print("Word:", add_spaces(displayed_word),
           "  Guesses:", num_guesses,
           "  Wrong:", num_wrong,
@@ -37,6 +39,7 @@ def get_letter(guessed_letters):
 
 # The input/process/draw technique is common in game programming
 def play_game():
+    hangman_graph = hangman_graphic.get_graphic()
     word = get_word()
     
     word_length = len(word)
@@ -49,7 +52,7 @@ def play_game():
 
     draw_screen(num_wrong, num_guesses, guessed_letters, displayed_word)
 
-    while num_wrong < 10 and remaining_letters > 0:
+    while num_wrong < 7 and remaining_letters > 0:
         guess = get_letter(guessed_letters)
         guessed_letters += guess
         
@@ -79,7 +82,7 @@ def play_game():
 
 def main():
     print("Play the H A N G M A N game")
-
+    print(hangman_graphic.get_graphic()[len(hangman_graphic.get_graphic()) - 1])
     again = "y"
     while again.lower() == "y":
         play_game()

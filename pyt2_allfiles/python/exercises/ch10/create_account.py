@@ -1,13 +1,13 @@
 def main():
     full_name = get_full_name()
-    print()
-    
     password = get_password()
-    print()
-    
-    first_name = get_first_name(full_name)   
-    print(f"Hi {first_name}, thanks for creating an account.")             
-    
+    email = get_email()
+    phone = get_phone()
+
+    first_name = get_first_name(full_name)
+    print(f"Hi {first_name}, thanks for creating an account.")
+
+
 def get_full_name():
     while True:
         name = input("Enter full name:       ").strip()
@@ -15,12 +15,14 @@ def get_full_name():
             return name
         else:
             print("You must enter your full name.")
-    
+
+
 def get_first_name(full_name):
     index1 = full_name.find(" ")
     first_name = full_name[:index1]
     return first_name
-    
+
+
 def get_password():
     while True:
         digit = False
@@ -36,6 +38,27 @@ def get_password():
                   f"with at least one digit and one uppercase letter.")
         else:
             return password
-        
+
+def get_email():
+    while True:
+        email = input("Enter email address:   ")
+        email = email.lower()
+        if "@" in email:
+            if email.endswith(".com"):
+                return email
+        print("Please enter a valid email address.")
+
+def get_phone():
+    while True:
+        phone = input("Enter phone number:   ")
+        temp = ""
+        for i in phone:
+            if i.isdigit():
+                temp += i
+        phone = temp
+        if len(phone) == 10:
+            return phone
+        print("Please enter a 10-digit phone number.")
+
 if __name__ == "__main__":
     main()
