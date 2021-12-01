@@ -16,8 +16,10 @@ def read_movies():
                 movies.append(row)
         return movies
     except FileNotFoundError as e:
-        print(f"Could not find {FILENAME} file.")
-        exit_program()
+        #print(f"Could not find {FILENAME} file.")
+        #exit_program()
+        return movies
+
     except Exception as e:
         print(type(e), e)
         exit_program()
@@ -25,11 +27,14 @@ def read_movies():
 def write_movies(movies):
     try:
         with open(FILENAME, "w", newline="") as file:
+            #raise OSError("OSError")
             writer = csv.writer(file)
             writer.writerows(movies)
     except Exception as e:
         print(type(e), e)
         exit_program()
+    except OSError as e:
+        print(type(e), e)
 
 def list_movies(movies):
     for i, movie in enumerate(movies, start=1):
@@ -38,7 +43,15 @@ def list_movies(movies):
     
 def add_movie(movies):
     name = input("Name: ")
-    year = input("Year: ")
+    year = 0
+    while year <= 0:
+        try:
+            year = int(input("Year: "))
+            if year <= 0:
+                print("Year must be larger than 0. Please try again")
+        except ValueError:
+            print("Invalid Selection. Try again")
+    year = str(year)
     movie = [name, year]
     movies.append(movie)
     write_movies(movies)
@@ -81,7 +94,7 @@ def main():
         elif command.lower() == "del":
             delete_movie(movies)
         elif command.lower() == "exit":
-            break
+            exit_program(movies)
         else:
             print("Not a valid command. Please try again.\n")
     print("Bye!")
