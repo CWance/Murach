@@ -6,15 +6,15 @@ def list(movie_list):
         return
     else:
         for i, movie in enumerate(movie_list, start=1):
-            print(f"{i}. {movie[0]} ({movie[1]})")
+            print(f"{i}. {movie['title']} ({movie['year']})")
         print()
 
 def add(movie_list):
     name = input("Name: ")
     year = input("Year: ")
-    movie = [name, year]
+    movie = {'title':name, 'year':year}
     movie_list.append(movie)
-    print(f"{movie[0]} was added.\n")
+    print(f"{movie['title']} was added.\n")
     
 def delete(movie_list):
     number = int(input("Number: "))
@@ -22,7 +22,7 @@ def delete(movie_list):
         print("Invalid movie number.\n")
     else:
         movie = movie_list.pop(number-1)
-        print(f"{movie[0]} was deleted.\n")
+        print(f"{movie['title']} was deleted.\n")
 
 def display_menu():
     print("COMMAND MENU")
@@ -33,9 +33,20 @@ def display_menu():
     print()    
         
 def main():
-    movie_list = [["Monty Python and the Holy Grail", 1975],
-                  ["On the Waterfront", 1954],
-                  ["Cat on a Hot Tin Roof", 1958]]
+    movie_list = [
+
+            {
+                'title':"Monty Python and the Holy Grail",
+                'year':1975,
+             },
+            {
+                'title':"On the Waterfront",
+                'year':1954},
+            {
+                'title':"Cat on a Hot Tin Roof",
+                'year':1958
+            }
+    ]
     
     display_menu()
     
