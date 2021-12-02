@@ -3,7 +3,7 @@
 import locale
 
 # set the locale for use in currency formatting
-locale.setlocale(locale.LC_ALL, 'en_US')
+locale.setlocale(locale.LC_ALL, '')
 
 # display a welcome message
 print("Welcome to the Future Value Calculator")

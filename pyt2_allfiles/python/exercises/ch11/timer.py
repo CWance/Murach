@@ -9,18 +9,18 @@ def main():
     # start timer
     input("Press Enter to start...")
     start_time = datetime.now()
-    print("Start time:", start_time)
+    print("Start time:", start_time.time())
     print()
     
     # stop timer
     input("Press Enter to stop...")    
     stop_time = datetime.now()
-    print("Stop time: ", stop_time)
+    print("Stop time: ", stop_time.time())
     print()
 
     # calculate elapsed time
     elapsed_time = stop_time - start_time
-    days = elapsed_time.days
+    hours = elapsed_time.seconds // 3600
     minutes = elapsed_time.seconds // 60
     seconds = elapsed_time.seconds % 60
     microseconds = elapsed_time.microseconds
@@ -34,9 +34,9 @@ def main():
 
     # display results
     print("ELAPSED TIME")
-    if days > 0:
-        print("Days:", days)
-    print("Time:", time_object)
+    if hours > 0 or minutes > 0:
+        print(f"Hours/minutes: {hours}:{minutes}")
+    print(f"Seconds: {seconds}.{microseconds}")
 
 if __name__ == "__main__":
     main()
