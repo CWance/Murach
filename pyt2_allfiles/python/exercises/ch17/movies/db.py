@@ -9,7 +9,7 @@ conn = None
 def connect():
     global conn
     if not conn:
-        DB_FILE = "/murach/python/_db/movies.sqlite"
+        DB_FILE = "../../../_db/movies.sqlite"
         conn = sqlite3.connect(DB_FILE)
         conn.row_factory = sqlite3.Row
 
@@ -93,3 +93,35 @@ def delete_movie(movie_id):
         c.execute(sql, (movie_id,))
         test = conn.commit()
         print("Test", test)
+
+def get_movie(movie_id):
+    sql = '''SELECT movieID, Movie.name, year, minutes,
+                      Movie.categoryID as categoryID,
+                      Category.name as categoryName
+               FROM Movie JOIN Category
+                      ON Movie.categoryID = Category.categoryID
+               WHERE movieID = ?'''
+    with closing(conn.cursor()) as c:
+        c.execute(sql, (movie_id,))
+        result = c.fetchone()
+    if result:
+        return make_movie(result)
+    else:
+        return None
+
+def get_movies_by_minutes(minutes):
+    sql = '''SELECT movieID, Movie.name, year, minutes,
+                          Movie.categoryID as categoryID,
+                          Category.name as categoryName
+                   FROM Movie JOIN Category
+                          ON Movie.categoryID = Category.categoryID
+                   WHERE minutes <= ?
+                   ORDER BY minutes'''
+    with closing(conn.cursor()) as c:
+        c.execute(sql, (minutes,))
+        results = c.fetchall()
+
+    movies = []
+    for row in results:
+        movies.append(make_movie(row))
+    return movies
