@@ -25,7 +25,7 @@ class FutureValueFrame(ttk.Frame):
         self.investment = Investment()
         self.message = ""
         
-        locale.setlocale(locale.LC_ALL, 'en_US')        
+        locale.setlocale(locale.LC_ALL, 'en_US')
 
         # Define string variables for text entry fields
         self.monthlyInvestment = tk.StringVar()

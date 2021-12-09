@@ -1,10 +1,24 @@
 #!/usr/bin/env python3
 
 import tkinter as tk
-from tkinter import ttk, messagebox 
+from tkinter import ttk, messagebox
 import locale
 
 from business import Investment
+
+
+class FutureValueFrames(ttk.Frame):
+    def __init__(self, parent):
+        ttk.Frame.__init__(self, parent)
+
+        #this adds the frames to the main frame
+        FutureValueFrame(parent).grid(row=0, column=0)
+        FutureValueFrame(parent).grid(row=0, column=1)
+
+
+        ttk.Button(parent, text="Exit", command=parent.destroy).grid(
+            row=1, column=1, sticky=tk.E, padx=15, pady=10)
+
 
 class FutureValueFrame(ttk.Frame):
     def __init__(self, parent):
@@ -12,8 +26,8 @@ class FutureValueFrame(ttk.Frame):
         self.parent = parent
         self.investment = Investment()
         self.message = ""
-        
-        ocale.setlocale(locale.LC_ALL, 'en_US')        
+
+        locale.setlocale(locale.LC_ALL, '')
 
         # Define string variables for text entry fields
         self.monthlyInvestment = tk.StringVar()
@@ -24,8 +38,6 @@ class FutureValueFrame(ttk.Frame):
         self.initComponents()
 
     def initComponents(self):
-        self.pack()
-
         # Display the grid of labels and text entry fields
         ttk.Label(self, text="Monthly Investment:").grid(
             column=0, row=0, sticky=tk.E)
@@ -61,9 +73,9 @@ class FutureValueFrame(ttk.Frame):
         buttonFrame.grid(column=0, row=4, columnspan=2, sticky=tk.E)
 
         # Add two buttons to the button frame
-        ttk.Button(buttonFrame, text="Calculate", command=self.calculate) \
+        ttk.Button(buttonFrame, text="Clear", command=self.clear) \
             .grid(column=0, row=0, padx=5)
-        ttk.Button(buttonFrame, text="Exit", command=self.parent.destroy) \
+        ttk.Button(buttonFrame, text="Calculate", command=self.calculate) \
             .grid(column=1, row=0)
 
     def get_float(self, val, fieldName):
@@ -79,8 +91,8 @@ class FutureValueFrame(ttk.Frame):
             self.message += f"{fieldName} must be a valid whole number.\n"
 
     def calculate(self):
-        self.message = "" # clear any previous error message
-        
+        self.message = ""  # clear any previous error message
+
         self.investment.monthlyInvestment = self.get_float(
             self.monthlyInvestment.get(), "Monthly investment")
         self.investment.yearlyInterestRate = self.get_float(
@@ -88,14 +100,21 @@ class FutureValueFrame(ttk.Frame):
         self.investment.years = self.get_int(
             self.years.get(), "Years")
 
-        if self.message == "": # no errors
+        if self.message == "":  # no errors
             self.futureValue.set(locale.currency(
                 self.investment.calculateFutureValue(), grouping=True))
         else:
             messagebox.showerror("Error", self.message)
 
+    def clear(self):
+        self.monthlyInvestment.set("")
+        self.yearlyInterestRate.set("")
+        self.years.set("")
+        self.futureValue.set("")
+
+
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Future Value Calculator")
-    FutureValueFrame(root)
+    FutureValueFrames(root)
     root.mainloop()
